@@ -189,13 +189,14 @@ class MyTabWidget(QWidget):
         self.exticonbutton.clicked.connect(self.copy_icon_file)
 
         # Create second tab
-        self.tab2.layout = QGridLayout(self)
+        gridlayout2 = QGridLayout()
+        self.tab2.setLayout(gridlayout2)
         self.acceptedby = QLabel()
         self.acceptedby.setText('Accepted by:')
         self.ack = QComboBox()
         self.ack.setFixedWidth(150)
-        self.tab2.layout.addWidget(self.acceptedby, 0, 0)
-        self.tab2.layout.addWidget(self.ack, 0, 1)
+        gridlayout2.addWidget(self.acceptedby, 0, 0)
+        gridlayout2.addWidget(self.ack, 0, 1)
         self.ack.addItem('admin')
         self.ack.addItem('user')
         self.extlicense = QLabel()
@@ -203,8 +204,8 @@ class MyTabWidget(QWidget):
         self.extlicense.setFixedWidth(300)
         self.eli = QComboBox()
         self.eli.setFixedWidth(300)
-        self.tab2.layout.addWidget(self.extlicense, 1, 0)
-        self.tab2.layout.addWidget(self.eli, 1, 1)
+        gridlayout2.addWidget(self.extlicense, 1, 0)
+        gridlayout2.addWidget(self.eli, 1, 1)
         self.eli.addItem('GPL-2.0 (General Public License Version 2.0)')
         self.eli.addItem('GPL-3.0 (General Public License Version 3.0)')
         self.eli.addItem('LGPL-3.0 (Lesser General Public '
@@ -215,12 +216,12 @@ class MyTabWidget(QWidget):
                          'ShareAlike 4.0 International License')
         self.soupdbox = QCheckBox('suppress-on-update')
         self.sifreqbox = QCheckBox('suppress-if-required')
-        self.tab2.layout.addWidget(self.soupdbox, 2, 0)
-        self.tab2.layout.addWidget(self.sifreqbox, 3, 0)
-        self.tab2.setLayout(self.tab2.layout)
+        gridlayout2.addWidget(self.soupdbox, 2, 0)
+        gridlayout2.addWidget(self.sifreqbox, 3, 0)
 
         # Create third tab
-        self.tab3.layout = QFormLayout(self)
+        gridlayout3 = QGridLayout()
+        self.tab3.setLayout(gridlayout3)
         self.contentkindbox = QGroupBox(
             'Which kind of content extension to build?')
         gridbox0 = QGridLayout()
@@ -350,14 +351,13 @@ class MyTabWidget(QWidget):
             self.copy_template_archive)
         gridbox6.addWidget(self.label_template_ziparchive, 0, 0)
         gridbox6.addWidget(self.tempate_archive_button, 0, 1)
-        self.tab3.layout.addWidget(self.contentkindbox)
-        self.tab3.layout.addWidget(self.autocorbox)
-        self.tab3.layout.addWidget(self.autotextbox)
-        self.tab3.layout.addWidget(self.gallerybox)
-        self.tab3.layout.addWidget(self.iconbox)
-        self.tab3.layout.addWidget(self.palettebox)
-        self.tab3.layout.addWidget(self.templatebox)
-        self.tab3.setLayout(self.tab3.layout)
+        gridlayout3.addWidget(self.contentkindbox)
+        gridlayout3.addWidget(self.autocorbox)
+        gridlayout3.addWidget(self.autotextbox)
+        gridlayout3.addWidget(self.gallerybox)
+        gridlayout3.addWidget(self.iconbox)
+        gridlayout3.addWidget(self.palettebox)
+        gridlayout3.addWidget(self.templatebox)
 
         # Add tabs to widget
         self.layout.addWidget(self.tabs)
@@ -634,9 +634,11 @@ class MyTabWidget(QWidget):
                 for name in files:
                     if not name == extensionname:
                         liboextensionzip.write(os.path.join(root, name))
+                        
+        sys.exit()
 
     def reject(self):
-        pass
+        sys.exit()
 
     def no_or_toshort_text1(self, widget):
         widgetname = widget.objectName()
